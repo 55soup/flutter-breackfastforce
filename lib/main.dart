@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import './screens/recipe.dart';
 void main() => runApp(MaterialApp(title: 'MyApp', home: MyApp()));
 
 class MyApp extends StatefulWidget {
@@ -28,23 +28,23 @@ class _MyApp extends State<MyApp> {
         },
         items: [
           BottomNavigationBarItem(
-            title: Text('일기'),
+            label: '일기',
             icon: Icon(Icons.drive_file_rename_outline),
           ),
           BottomNavigationBarItem(
-            title: Text('레시피'),
+            label: '레시피',
             icon: Icon(Icons.rice_bowl_outlined),
           ),
           BottomNavigationBarItem(
-            title: Text('아침구독'),
+            label: '아침구독',
             icon: Icon(Icons.restaurant_outlined),
           ),
           BottomNavigationBarItem(
-            title: Text('정보'),
+            label: '정보',
             icon: Icon(Icons.book_outlined),
           ),
           BottomNavigationBarItem(
-            title: Text('통계'),
+            label: '통계',
             icon: Icon(Icons.trending_up_outlined),
           ),
         ],
@@ -60,10 +60,7 @@ class _MyApp extends State<MyApp> {
       'Favorites',
       style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
     ),
-    Text(
-      'Music',
-      style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
-    ),
+    Recipe(),
     Text(
       'Places',
       style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
