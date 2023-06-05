@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './screens/recipe.dart';
+import './screens/subscribe.dart';
+
 void main() => runApp(MaterialApp(title: 'MyApp', home: MyApp()));
 
 class MyApp extends StatefulWidget {
@@ -60,11 +62,10 @@ class _MyApp extends State<MyApp> {
       'Favorites',
       style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
     ),
+    // 레시피 페이지
     Recipe(),
-    Text(
-      'Places',
-      style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
-    ),
+    // 아침구독 페이지
+    Subscribe(),
     Text(
       'News',
       style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
