@@ -237,7 +237,7 @@ Widget _pageOfMiddle1() {
                           ),
                           Row(
                             children: [
-                              Image.asset('images/clockIcon.png'),
+                              Image.asset('images/recipe/clockIcon.png'),
                               Text(recipeCommentLevelTime[i][1]),
                             ],
                           )
@@ -372,7 +372,7 @@ class Detail extends StatelessWidget {
                 height: 500,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(32.5),
-                  child: Image.asset('images/recipe1.png',
+                  child: Image.asset('images/recipe/recipe1.png',
                     fit: BoxFit.cover,
                   ),
                 ),
