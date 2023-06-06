@@ -125,7 +125,7 @@ class SecondPage extends StatelessWidget {
                 width:300,
                 child: Padding(
                   padding: EdgeInsets.all(50.0),
-                  child:Image.asset('q1.png'),
+                  child:Image.asset('soo/q1.png'),
                 )
             ),
             Container(
@@ -229,7 +229,7 @@ class _ThirdPageState extends State<ThirdPage> {
               width: 300,
               child: Padding(
                 padding: EdgeInsets.all(50.0),
-                child: Image.asset('q2.png'),
+                child: Image.asset('soo/q2.png'),
               ),
             ),
             SizedBox(height: 8),
@@ -394,7 +394,7 @@ class _FourthPageState extends State<FourthPage> {
               width: 300,
               child: Padding(
                 padding: EdgeInsets.all(50.0),
-                child: Image.asset('q3.png'),
+                child: Image.asset('soo/q3.png'),
               ),
             ),
             SizedBox(height: 8),
@@ -598,7 +598,7 @@ class _FifthPageState extends State<FifthPage> {
               width: 300,
               child: Padding(
                 padding: EdgeInsets.all(50.0),
-                child: Image.asset('q4.png'),
+                child: Image.asset('soo/q4.png'),
               ),
             ),
             SizedBox(height: 8),
@@ -772,7 +772,7 @@ class _SixthPageState extends State<SixthPage> {
               width: 300,
               child: Padding(
                 padding: EdgeInsets.all(50.0),
-                child: Image.asset('q5.png'),
+                child: Image.asset('soo/q5.png'),
               ),
             ),
             SizedBox(height: 8),

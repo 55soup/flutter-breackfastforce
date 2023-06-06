@@ -22,7 +22,7 @@ class WritePost extends StatelessWidget {
       appBar: AppBar(
         leading: Padding(
           padding: EdgeInsets.all(16.0),
-          child: Image.asset('assets/arrow-left.png',width:40, height:40),
+          child: Image.asset('assets/soo/arrow-left.png',width:40, height:40),
         ),
       ),
       body: SingleChildScrollView(
@@ -54,7 +54,7 @@ class WritePost extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(16.0),
               child: Image.asset(
-                'assets/folder-plus.png',
+                'assets/soo/folder-plus.png',
                 width: 50,
                 height: 50,
               ),

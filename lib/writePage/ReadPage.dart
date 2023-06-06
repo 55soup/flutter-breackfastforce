@@ -32,7 +32,7 @@ class ReadPage extends StatelessWidget {
                 child: ImageFiltered(
                   imageFilter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                   child: Image.asset(
-                    'image1.jpg',
+                    'soo/image1.jpg',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -48,7 +48,7 @@ class ReadPage extends StatelessWidget {
                       },
 
                       child: Image.asset(
-                        'arrow-left.png',
+                        'soo/arrow-left.png',
                         width: 50,
                         height: 50,
                       ),
@@ -78,7 +78,7 @@ class ReadPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Image.asset(
-                      'image1.jpg',
+                      'soo/image1.jpg',
                       width: 200,
                       height: 200,
                     ),
