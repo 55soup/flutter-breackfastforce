@@ -1,6 +1,10 @@
+import 'package:breakfastforce/screens/recipe.dart';
+import 'package:breakfastforce/screens/subscribe.dart';
 import 'package:flutter/material.dart';
-import './screens/recipe.dart';
-import './screens/subscribe.dart';
+import 'diary.dart';
+import 'diary_write.dart';
+import 'profile.dart';
+
 
 void main() => runApp(MaterialApp(title: 'MyApp', home: MyApp()));
 
@@ -11,10 +15,27 @@ class MyApp extends StatefulWidget {
 
 class _MyApp extends State<MyApp> {
   int _selectedIndex = 0;
+
+  static List<Widget> _widgetOptions = <Widget>[
+    Diary(),
+    Recipe(),
+    Subscribe(),
+    DiaryWrite(),
+    Profile(),
+  ];
+
+  void _onItemTapped(int index) { // 탭을 클릭했을떄 지정한 페이지로 이동
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      body: SafeArea(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.grey,
@@ -28,51 +49,59 @@ class _MyApp extends State<MyApp> {
             _selectedIndex = index;
           });
         },
-        items: [
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            label: '일기',
             icon: Icon(Icons.drive_file_rename_outline),
+            label: '일기',
           ),
           BottomNavigationBarItem(
-            label: '레시피',
             icon: Icon(Icons.rice_bowl_outlined),
+            label: '레시피',
           ),
           BottomNavigationBarItem(
-            label: '아침구독',
             icon: Icon(Icons.restaurant_outlined),
+            label: '아침구독',
           ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.restaurant_outlined),
+          //   label: '일기작성',
+          // ),
           BottomNavigationBarItem(
-            label: '정보',
             icon: Icon(Icons.book_outlined),
+            label: '정보',
           ),
           BottomNavigationBarItem(
-            label: '통계',
             icon: Icon(Icons.trending_up_outlined),
+            label: '통계',
           ),
         ],
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        // currentIndex: _selectedIndex, // 지정 인덱스로 이동
+        // selectedItemColor: Colors.lightGreen,
+        // onTap: _onItemTapped, // 선언했던 onItemTapped
       ),
     );
   }
 
-  List _widgetOptions = [
-    Text(
-      'Favorites',
-      style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
-    ),
-    // 레시피 페이지
-    Recipe(),
-    // 아침구독 페이지
-    Subscribe(),
-    Text(
-      'News',
-      style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
-    ),
-    Text(
-      'News',
-      style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
-    ),
-  ];
+  // List _widgetOptions = [
+  //   Text(
+  // 'Favorites',
+  // style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+  //   ),
+  //   Text(
+  //     'Music',
+  //     style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+  //   ),
+  //   Text(
+  //     'Places',
+  //     style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+  //   ),
+  //   Text(
+  //     'News',
+  //     style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+  //   ),
+  //   Text(
+  //     'News',
+  //     style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+  //   ),
+  // ];
 }
