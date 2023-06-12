@@ -1,20 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-List recipeItemTitleImage = [
-  ["칠리 샌드위치", 'images/recipe/recipe1.png'],
-  ["새우 버섯 샐러드", 'images/recipe/recipe2.png'],
-  ["아보카도 계란 식빵", 'images/recipe/recipe3.png'],
-  ["견과류 보울", 'images/recipe/recipe4.png'],
-  ["과일 그릭 요거트", 'images/recipe/recipe5.png']
+import 'detail.dart';
+
+List recipeTitle = [
+  "칠리 샌드위치",
+  "새우 버섯 샐러드",
+  "아보카도 계란 식빵",
+  "견과류 보울",
+  "과일 그릭 요거트",
 ];
 
-List recipeCommentLevelTime = [
-  ["아침에 후다닥 나갈 때 Best!", "5m ~ 10m", "쉬움", "짧음"],
-  ["오동통한 새우와 아삭아삭한 샐러드의 조화", "5m ~ 15m", "보통", "보통"],
-  ["부드러운 아보카도와 담백한 계란", "5m ~ 10m", "보통", "보통"],
-  ["아침에 먹기 좋은 음식 1위 견과류!", "5m", "쉬움", "짧음"],
-  ["장 운동을 도와줄 요거트와 상큼한 과일", "5m ~ 10m", "쉬움", "짧음"],
+List recipeImage = [
+  'images/recipe/recipe1.png',
+  'images/recipe/recipe2.png',
+  'images/recipe/recipe3.png',
+  'images/recipe/recipe4.png',
+  'images/recipe/recipe5.png'
+];
+
+List recipeCommen= [
+  "아침에 후다닥 나갈 때 Best!",
+  "오동통한 새우와 아삭아삭한 샐러드의 조화",
+  "부드러운 아보카도와 담백한 계란",
+  "아침에 먹기 좋은 음식 1위 견과류!",
+  "장 운동을 도와줄 요거트와 상큼한 과일",
+];
+
+List recipeLevel = [
+  "쉬움",
+  "보통",
+  "보통",
+  "쉬움",
+  "쉬움",
+];
+
+List recipeTime = [
+  "5m ~ 10m",
+  "5m ~ 15m",
+  "5m ~ 10m",
+  "5m",
+  "5m ~ 10m",
 ];
 
 List recipeLevelIcon = [
@@ -194,7 +220,7 @@ Widget _pageOfMiddle1() {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Image.asset(recipeItemTitleImage[i][1], fit: BoxFit.fitHeight, width: 120, height: 120,),
+                            Image.asset(recipeImage[i], fit: BoxFit.fitHeight, width: 120, height: 120,),
                           ],
                         ),
                       ),
@@ -202,15 +228,15 @@ Widget _pageOfMiddle1() {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(recipeItemTitleImage[i][0], style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, ),),
-                          Text(recipeCommentLevelTime[i][0], style: TextStyle(fontSize: 14)),
+                          Text(recipeTitle[i], style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, ),),
+                          Text(recipeCommen[i], style: TextStyle(fontSize: 14)),
                           Row(
                             children: [
                               Image.asset(recipeLevelIcon[i][0]),
                               Image.asset(recipeLevelIcon[i][1]),
                               Image.asset(recipeLevelIcon[i][2]),
                               Container(
-                                child: Text("쉬움", textAlign: TextAlign.center,),
+                                child: Text(recipeLevel[i], textAlign: TextAlign.center,),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.all(Radius.circular(15.0)),
@@ -229,7 +255,15 @@ Widget _pageOfMiddle1() {
                               IconButton(
                                   icon: Icon(Icons.add_circle_outline),
                                   onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext ctx) => Detail()));
+                                    print(i);
+                                    Navigator.push(context, MaterialPageRoute(
+                                        builder: (BuildContext ctx) =>
+                                            Detail(
+                                            recipaData: recipeTitle[i],
+                                            recipImag : recipeImage[i],
+                                            recipTime : recipeTime[i],
+                                            reciplevel : recipeLevel[i],
+                                            recipComment : recipeCommen[i])));
                                   }
 
                               )
@@ -238,7 +272,7 @@ Widget _pageOfMiddle1() {
                           Row(
                             children: [
                               Image.asset('images/recipe/clockIcon.png'),
-                              Text(recipeCommentLevelTime[i][1]),
+                              Text(recipeTime[i]),
                             ],
                           )
                         ],
@@ -352,59 +386,6 @@ class Category extends StatelessWidget {
       ),
       width: 100,
       height: 30,
-    );
-  }
-}
-
-// 상세페이지
-class Detail extends StatelessWidget {
-  const Detail({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 500,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(32.5),
-                  child: Image.asset('images/recipe/recipe1.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Positioned(
-                  child: Column(
-                    children: <Widget>[
-                      IconButton(
-                        onPressed: (){Navigator.pop(context);},
-                        icon: Icon(Icons.arrow_back_outlined), iconSize: 50,)
-                    ],
-                  )),
-            ],
-          ),
-          Positioned(
-              bottom: -300,
-              right: 0,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 500,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                ),
-                child: Column(
-                  children: [
-
-                  ],
-                ),
-              ))
-        ],
-      ),
     );
   }
 }
