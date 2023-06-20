@@ -109,7 +109,6 @@ class CustomListItem extends StatelessWidget {
   }
 }
 
-
 class _MyHomePageState extends State<MyHomePage> {
   List<DateTime?> _dialogCalendarPickerValue = [
     DateTime(2021, 8, 10),
@@ -194,63 +193,63 @@ class _MyHomePageState extends State<MyHomePage> {
     ListItem("제목 3", "내용 3"),
   ];
 
-  Widget _buildDefaultMultiDatePickerWithValue() {
-    final config = CalendarDatePicker2Config(
-      calendarType: CalendarDatePicker2Type.multi,
-      selectedDayHighlightColor: Color(0xffFFEBE4),
-    );
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const SizedBox(height: 10),
-        CalendarDatePicker2(
-          config: config,
-          value: _multiDatePickerValueWithDefaultValue,
-          onValueChanged: (dates) =>
-              setState(() => _multiDatePickerValueWithDefaultValue = dates),
-        ),
-        const SizedBox(height: 10),
-        Wrap(
-            children: [
-              const Text('Selection(s):  '),
-              const SizedBox(width: 10),
-              Text(
-                _getValueText(
-                  config.calendarType,
-                  _multiDatePickerValueWithDefaultValue,
-                ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                softWrap: false,
+Widget _buildDefaultMultiDatePickerWithValue() {
+  final config = CalendarDatePicker2Config(
+    calendarType: CalendarDatePicker2Type.multi,
+    selectedDayHighlightColor: Color(0xffFFEBE4),
+  );
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      const SizedBox(height: 10),
+      CalendarDatePicker2(
+        config: config,
+        value: _multiDatePickerValueWithDefaultValue,
+        onValueChanged: (dates) =>
+            setState(() => _multiDatePickerValueWithDefaultValue = dates),
+      ),
+      const SizedBox(height: 10),
+      Wrap(
+          children: [
+            const Text('Selection(s):  '),
+            const SizedBox(width: 10),
+            Text(
+              _getValueText(
+                config.calendarType,
+                _multiDatePickerValueWithDefaultValue,
               ),
-              IconButton(
-                  icon: Icon(Icons.add_circle_outline),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext ctx) => DiaryWrite()));
-                  }
-              ),
-              const SizedBox(height: 50),
-              Container(
-                height: 400,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.separated(
-                        padding: const EdgeInsets.all(8),
-                        itemCount: itemList.length,
-                        itemBuilder: (context, index) {
-                          return CustomListItem(itemList[index], index);
-                        }, separatorBuilder: (BuildContext context, int index) => SizedBox(height: 20),
-                      ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              softWrap: false,
+            ),
+            IconButton(
+                icon: Icon(Icons.add_circle_outline),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext ctx) => DiaryWrite()));
+                }
+            ),
+            const SizedBox(height: 50),
+            Container(
+              height: 400,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.separated(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: itemList.length,
+                      itemBuilder: (context, index) {
+                        return CustomListItem(itemList[index], index);
+                      }, separatorBuilder: (BuildContext context, int index) => SizedBox(height: 20),
                     ),
-                  ],
-                )
-              ),
-            ]
-        )
-      ]
-    );
-  }
+                  ),
+                ],
+              )
+            ),
+          ]
+      )
+    ]
+  );
+}
 
 
 }
