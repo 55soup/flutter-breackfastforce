@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:breakfastforce/diary_write.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 final today = DateUtils.dateOnly(DateTime.now());
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<DateTime?> _singleDatePickerValueWithDefaultValue = [
     DateTime.now(),
   ];
-  List<DateTime?> _multiDatePickerValueWithDefaultValue = [
+  List<DateTime?> _multiDatePickerValueWithDefaultValue = [ // 선택된 날짜
     DateTime(today.year, today.month, 1),
     DateTime(today.year, today.month, 5),
     DateTime(today.year, today.month, 14),
@@ -150,10 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  String _getValueText(
-      CalendarDatePicker2Type datePickerType,
-      List<DateTime?> values,
-      ) {
+  String _getValueText(CalendarDatePicker2Type datePickerType, List<DateTime?> values) {
     values =
         values.map((e) => e != null ? DateUtils.dateOnly(e) : null).toList();
     var valueText = (values.isNotEmpty ? values[0] : null)
@@ -186,12 +183,15 @@ class _MyHomePageState extends State<MyHomePage> {
   // 사용 예시
   List<ListItem> itemList = [
     ListItem("제목 1", "내용 1"),
-    ListItem("제목 2", "내용 2"),
-    ListItem("제목 3", "내용 3"),
-    ListItem("제목 3", "내용 3"),
-    ListItem("제목 3", "내용 3"),
-    ListItem("제목 3", "내용 3"),
   ];
+
+void addItemToList() {
+  setState(() {
+    itemList.add(
+      ListItem("새로운 제목", "새로운 내용"),
+    );
+  });
+}
 
 Widget _buildDefaultMultiDatePickerWithValue() {
   final config = CalendarDatePicker2Config(
@@ -228,9 +228,13 @@ Widget _buildDefaultMultiDatePickerWithValue() {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext ctx) => DiaryWrite()));
                 }
             ),
+            IconButton(
+                icon: Icon(Icons.add_circle_outline),
+                onPressed: addItemToList,
+            ),
             const SizedBox(height: 50),
             Container(
-              height: 400,
+              height: 350,
               child: Column(
                 children: [
                   Expanded(
@@ -244,8 +248,7 @@ Widget _buildDefaultMultiDatePickerWithValue() {
                   ),
                 ],
               )
-            ),
-          ]
+            ),  ]
       )
     ]
   );
