@@ -56,16 +56,11 @@ List recipeColor = [
 ];
 
 List keyWordImage = [
-  ["육류", 'images/recipe/drumstickcategory.png'],
-  ["어패류", 'images/recipe/fishcategory.png'],
-  ["채소류", 'images/recipe/saladcategory.png'],
-  ["찌개류", 'images/recipe/soupcategory.png'],
-  ["과일류", 'images/recipe/emptyRiceIcon.png'],
-  ["추천", 'images/recipe/emptyRiceIcon.png'],
-  ["추천", 'images/recipe/emptyRiceIcon.png'],
-  ["추천", 'images/recipe/emptyRiceIcon.png'],
-  ["추천", 'images/recipe/emptyRiceIcon.png'],
-  ["추천", 'images/recipe/emptyRiceIcon.png'],
+  ["육류", 'images/recipe/drumstickcategory.png', 'images/recipe/img_meat.png'],
+  ["채소류", 'images/recipe/saladcategory.png', 'images/recipe/img_vaget.png'],
+  ["찌개류", 'images/recipe/soupcategory.png', 'images/recipe/img_soup.png'],
+  ["과일류", 'images/recipe/fruitcategory.png', 'images/recipe/img_fruit.png'],
+  ["기타", 'images/recipe/emptyRiceIcon.png', 'images/recipe/img_guitar.png'],
 ];
 
 void main() {
@@ -259,11 +254,11 @@ Widget _pageOfMiddle1() {
                                     Navigator.push(context, MaterialPageRoute(
                                         builder: (BuildContext ctx) =>
                                             Detail(
-                                            recipaData: recipeTitle[i],
-                                            recipImag : recipeImage[i],
-                                            recipTime : recipeTime[i],
-                                            reciplevel : recipeLevel[i],
-                                            recipComment : recipeCommen[i])));
+                                                recipaData: recipeTitle[i],
+                                                recipImag : recipeImage[i],
+                                                recipTime : recipeTime[i],
+                                                reciplevel : recipeLevel[i],
+                                                recipComment : recipeCommen[i])));
                                   }
 
                               )
@@ -292,40 +287,46 @@ Widget _pageOfMiddle2() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text("카테고리로 찾아보세요!", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+      Text(
+        "카테고리로 찾아보세요!",
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
       CarouselSlider(
+        carouselController: _controller,
         options: CarouselOptions(
-            height: 150.0,
-            enableInfiniteScroll: false,
-            initialPage: 0,
-            viewportFraction: 0.33
+          height: 150.0,
+          enableInfiniteScroll: false,
+          initialPage: 0,
+          viewportFraction: 0.33,
         ),
-        items: [0,1,2,3,4,5,7,8,9].map((i) { //
+        items: [0, 1, 2, 3, 4].map((i) {
           return Builder(
-            builder: (BuildContext context) { // context 사용할 경우 활용
+            builder: (BuildContext context) {
               return Container(
-                  transform: Matrix4.translationValues(-1000 / 8, 0, 0),
-                  padding: EdgeInsets.all(10.0),
-                  width: 120,
-                  margin: EdgeInsets.symmetric(vertical: 30.0, horizontal: 10.0), // 좌우여백 설정
-                  decoration: BoxDecoration(
-                      color: Colors.black26,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 0,
-                            blurRadius: 6.0,
-                            offset: Offset(0, 6)
-                        )
-                      ]
-                  ),
+                margin:
+                EdgeInsets.symmetric(vertical: 30.0, horizontal: 10.0),
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    print(i);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext ctx) => CategoryDetailPage(category: keyWordImage[i][0], image: keyWordImage[i][1], b:keyWordImage[i][2]),
+                      ),
+                    );
+                  },
                   child: Column(
                     children: [
-                      Image.asset(keyWordImage[i][1], width: 50, height: 50,),
+                      Image.asset(
+                        keyWordImage[i][1],
+                        width: 50,
+                        height: 50,
+                      ),
                       Text(keyWordImage[i][0]),
                     ],
-                  )
+                  ),
+                ),
               );
             },
           );
@@ -333,6 +334,39 @@ Widget _pageOfMiddle2() {
       ),
     ],
   );
+}
+
+class CategoryDetailPage extends StatelessWidget {
+  final String category;
+  final String image;
+  final String b;
+
+  CategoryDetailPage({required this.category, required this.image, required this.b});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(category),
+      ),
+      body: Container(
+        width: double.infinity, // Update this line
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(b),
+          ),
+        ),
+        padding: EdgeInsets.fromLTRB(0, 1050, 0, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Rest of the code...
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 Widget _pageOfBottom() {

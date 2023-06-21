@@ -29,14 +29,6 @@ class Detail extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                  child: Column(
-                    children: <Widget>[
-                      IconButton(
-                        onPressed: (){Navigator.pop(context);},
-                        icon: Icon(Icons.arrow_back_outlined), iconSize: 50,)
-                    ],
-                  )),
             ],
           ),
           Positioned(
@@ -51,10 +43,10 @@ class Detail extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                      Text(recipaData),
-                      Text(reciplevel),
-                      Text(recipTime),
-                      Text(recipComment),
+                    Text(recipaData),
+                    Text(reciplevel),
+                    Text(recipTime),
+                    Text(recipComment),
                   ],
                 ),
               ))

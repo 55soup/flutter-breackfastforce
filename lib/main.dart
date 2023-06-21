@@ -6,7 +6,7 @@ import 'diary_write.dart';
 import 'profile.dart';
 
 
-void main() => runApp(MaterialApp(title: 'MyApp', home: MyApp()));
+void main() => runApp(MaterialApp(title: 'MyApp', debugShowCheckedModeBanner: false, home: MyApp()));
 
 class MyApp extends StatefulWidget {
   @override
@@ -33,6 +33,7 @@ class _MyApp extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: SafeArea(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
