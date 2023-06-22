@@ -19,6 +19,14 @@ List recipeImage = [
   'images/recipe/recipe5.png'
 ];
 
+List recipeImage1 = [
+  'images/recipe/detail1.png',
+  'images/recipe/detail2.png',
+  'images/recipe/detail3.png',
+  'images/recipe/detail4.png',
+  'images/recipe/detail5.png'
+];
+
 List recipeCommen= [
   "아침에 후다닥 나갈 때 Best!",
   "오동통한 새우와 아삭아삭한 샐러드의 조화",
@@ -254,11 +262,7 @@ Widget _pageOfMiddle1() {
                                     Navigator.push(context, MaterialPageRoute(
                                         builder: (BuildContext ctx) =>
                                             Detail(
-                                                recipaData: recipeTitle[i],
-                                                recipImag : recipeImage[i],
-                                                recipTime : recipeTime[i],
-                                                reciplevel : recipeLevel[i],
-                                                recipComment : recipeCommen[i])));
+                                                recipImag1 : recipeImage1[i])));
                                   }
 
                               )
