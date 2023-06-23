@@ -60,7 +60,7 @@ List recipeLevelIcon = [
 ];
 
 List recipeColor = [
-  ["0xFFD8EDBD"], ["0xFFFFF8E0"], ["0xFFFFEBE4"], ["0xFFFFFFC6"], ["0xFFFFF1C1"]
+  ["0xFFD8EDBD"], ["0xFFFFFFC6"], ["0xFFFFEBE4"], ["0xFFFFFFC6"], ["0xFFFFF1C1"]
 ];
 
 List keyWordImage = [
@@ -84,6 +84,10 @@ class Recipe extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        appBarTheme: null,
+      ),
     );
   }
 }
@@ -101,7 +105,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( title: Text("레시피"), ),
       body: Container(
         child: RecipePage(),
       ),
@@ -350,9 +353,7 @@ class CategoryDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(category),
-      ),
+      appBar: AppBar(backgroundColor: Colors.white, iconTheme: IconThemeData(color: Colors.black),),
       body: Container(
         width: double.infinity, // Update this line
         decoration: BoxDecoration(
@@ -382,9 +383,9 @@ Widget _pageOfBottom() {
           child: Text("대부분 이런 아침밥을 즐겨요!", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
       Row(
         children: [
-          Category(),
-          Category(),
-          Category(),
+          Category(text:'산채비빔밥', b:'#D8EDBD'),
+          Category(text:'웨지감자', b:'#FFFFC6'),
+          Category(text:'천엽조림', b:'#FFEBE4'),
         ],
       ),
       Row(
@@ -393,9 +394,9 @@ Widget _pageOfBottom() {
             padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
             child: Text(""),
           ),
-          Category(),
-          Category(),
-          Category(),
+          Category(text: '샌드위치', b:'#FFF1C1'),
+          Category(text: '건강주스', b:'#FFFFC6'),
+          Category(text: '아침추천', b:'#D8EDBD'),
         ],
       )
     ],
@@ -404,14 +405,24 @@ Widget _pageOfBottom() {
 
 
 class Category extends StatelessWidget {
-  const Category({Key? key}) : super(key: key);
+
+  final String text;
+  final String b;
+
+  const Category({Key? key,required this.text, required this.b}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+
+    Color hexToColor(String code) {
+      return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+    }
+
     return Container(
-      child: Text("#샌드위치", textAlign: TextAlign.center, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.black87),),
+      child: Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.black87),),
       decoration: BoxDecoration(
-          color: Color(int.parse(recipeColor[0][0])),
+          color: hexToColor(b),
           borderRadius: BorderRadius.all(Radius.circular(15.0)),
           boxShadow: [
             BoxShadow(

@@ -162,7 +162,7 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(backgroundColor: Colors.white, iconTheme: IconThemeData(color: Colors.black),
         title: Text(subscribeText[1]),
       ),
       body: SingleChildScrollView( // Add this line

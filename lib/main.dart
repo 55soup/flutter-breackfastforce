@@ -1,12 +1,14 @@
+import 'package:breakfastforce/questionPage/question.dart';
 import 'package:breakfastforce/screens/recipe.dart';
 import 'package:breakfastforce/screens/subscribe.dart';
 import 'package:flutter/material.dart';
 import 'diary.dart';
 import 'diary_write.dart';
 import 'profile.dart';
+import 'writePage/main.dart';
+import 'writePage/WritePage.dart';
 
-
-void main() => runApp(MaterialApp(title: 'MyApp', debugShowCheckedModeBanner: false, home: MyApp()));
+void main() => runApp(MaterialApp(title: 'MyApp', home: MyApp()));
 
 class MyApp extends StatefulWidget {
   @override
@@ -20,7 +22,7 @@ class _MyApp extends State<MyApp> {
     Diary(),
     Recipe(),
     Subscribe(),
-    DiaryWrite(),
+    WritePost(),
     Profile(),
   ];
 
@@ -33,7 +35,6 @@ class _MyApp extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: SafeArea(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -83,26 +84,26 @@ class _MyApp extends State<MyApp> {
     );
   }
 
-  // List _widgetOptions = [
-  //   Text(
-  // 'Favorites',
-  // style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
-  //   ),
-  //   Text(
-  //     'Music',
-  //     style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
-  //   ),
-  //   Text(
-  //     'Places',
-  //     style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
-  //   ),
-  //   Text(
-  //     'News',
-  //     style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
-  //   ),
-  //   Text(
-  //     'News',
-  //     style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
-  //   ),
-  // ];
+// List _widgetOptions = [
+//   Text(
+// 'Favorites',
+// style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+//   ),
+//   Text(
+//     'Music',
+//     style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+//   ),
+//   Text(
+//     'Places',
+//     style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+//   ),
+//   Text(
+//     'News',
+//     style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+//   ),
+//   Text(
+//     'News',
+//     style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+//   ),
+// ];
 }

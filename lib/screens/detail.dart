@@ -10,14 +10,12 @@ class Detail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('상세 페이지'),
-      ),
+      appBar: AppBar(backgroundColor: Colors.white, iconTheme: IconThemeData(color: Colors.black),),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(recipImag1,),  // 넘어온 이미지를 배경화면으로 설정
-            fit: BoxFit.cover,
+            fit: BoxFit.fitWidth,
           ),
         ),
       ),

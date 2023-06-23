@@ -1,11 +1,15 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'dart:ui' as ui;
 
 void main() {
-  runApp(ReadApp());
+  runApp(const ReadApp());
 }
 
 class ReadApp extends StatelessWidget {
+  const ReadApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,17 +17,125 @@ class ReadApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ReadPage(),
+      home: const WritePost(),
+    );
+  }
+}
+
+class WritePost extends StatefulWidget {
+  const WritePost({Key? key}) : super(key: key);
+
+  @override
+  _WritePostState createState() => _WritePostState();
+}
+
+class _WritePostState extends State<WritePost> {
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController contentController = TextEditingController();
+  File? selectedImageFile;
+  final ImagePicker _imagePicker = ImagePicker();
+
+  Future<void> _pickImage() async {
+    final pickedImage =
+    await _imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      setState(() {
+        selectedImageFile = File(pickedImage.path);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextField(
+                controller: titleController,
+                decoration: const InputDecoration(
+                  hintText: 'Title',
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              TextField(
+                controller: contentController,
+                decoration: const InputDecoration(
+                  hintText: 'Content',
+                ),
+                maxLines: null, // Allows multiple lines input
+              ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              child: GestureDetector(
+                onTap: _pickImage,
+                // 이미지 -> 아이콘
+                child: const Icon(Icons.drive_folder_upload_outlined, size: 40),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: FloatingActionButton(
+                onPressed: () {
+                  // Navigate to the ReadPage and pass the title, content, and imageFile as route arguments
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ReadPage(
+                        title: titleController.text,
+                        content: contentController.text,
+                        imageFile: selectedImageFile,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('Submit'),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
 class ReadPage extends StatelessWidget {
+  final String title;
+  final String content;
+  final File? imageFile;
+
+  const ReadPage(
+      {
+        required this.title,
+        required this.content,
+        required this.imageFile});
+
   @override
   Widget build(BuildContext context) {
+    String? imagePath = imageFile != null ? imageFile!.path : null;
+
     return Scaffold(
+      // appbar 추가
+      appBar: AppBar(
+        leading: const Icon(
+          Icons.arrow_left,
+          size: 40,
+        ),
+      ),
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: 412,
           height: 914,
           child: Stack(
@@ -31,7 +143,12 @@ class ReadPage extends StatelessWidget {
               Positioned.fill(
                 child: ImageFiltered(
                   imageFilter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                  child: Image.asset(
+                  child: imagePath != null
+                      ? Image.network(
+                    imagePath,
+                    fit: BoxFit.cover,
+                  )
+                      : Image.asset(
                     'soo/image1.jpg',
                     fit: BoxFit.cover,
                   ),
@@ -41,47 +158,50 @@ class ReadPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child:GestureDetector(
-                      onTap: (){
-                        //화살표 페이지 클릭 시 이동 또는 작동할? 코드
+                    padding: const EdgeInsets.all(16.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        // Handle arrow page click
                       },
-
-                      child: Image.asset(
-                        'soo/arrow-left.png',
-                        width: 50,
-                        height: 50,
+                      // 이미지 -> 아이콘
+                      child: const Icon(Icons.arrow_left, size: 40),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      title,
+                      maxLines: 999999999999999,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      "모든 국민은 인간으로서의 존엄과 가치를 가지며,\n"
-                          "행복을 추구할 권리를 가진다.\n\n"
-                          "국가는 개인이 가지는 불가침의 기본적 인권을 확인하고\n"
-                          "이를 보장할 의무를 진다.\n\n"
-                          "대통령으로 선거될 수 있는 자는 국회의원의 피선거권이 있고\n"
-                          "선거일 현재 40세에 달하여야 한다.\n\n"
-                          "국무총리는 대통령을 보좌하며,\n"
-                          "행정에 관하여 대통령의 명을 받아 행정각부를 통할한다.\n\n"
-                          "국가는 평생교육을 진흥하여야 한다.\n\n"
-                          "국회는 국정을 감사하거나\n"
-                          "특정한 국정사안에 대하여 조사할 수 있으며,\n\n"
-                          "이에 필요한 서류의 제출 또는 증인의 출석과 증언이나\n"
-                          "의견의 진술을 요구할 수 있다.",
+                      content,
                       maxLines: 999999999999999,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Image.asset(
-                      'soo/image1.jpg',
+                    padding: const EdgeInsets.all(16.0),
+                    child: imagePath != null
+                        ? Image.network(
+                      imagePath,
                       width: 200,
                       height: 200,
-                    ),
+                    )
+                        : const SizedBox(),
                   ),
                 ],
               ),

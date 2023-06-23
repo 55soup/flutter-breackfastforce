@@ -1,30 +1,49 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
+import 'package:image_picker/image_picker.dart';
 
 void main() {
-  runApp(WritePostApp());
+  runApp(ReadApp());
 }
 
-class WritePostApp extends StatelessWidget {
+class ReadApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My App',
+      title: 'Text and Image Page',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: WritePost(),
     );
   }
 }
 
-class WritePost extends StatelessWidget {
+class WritePost extends StatefulWidget {
+  @override
+  _WritePostState createState() => _WritePostState();
+}
+
+class _WritePostState extends State<WritePost> {
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController contentController = TextEditingController();
+  File? selectedImageFile;
+  final ImagePicker _imagePicker = ImagePicker();
+
+  Future<void> _pickImage() async {
+    final pickedImage = await _imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      setState(() {
+        selectedImageFile = File(pickedImage.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Image.asset('assets/soo/arrow-left.png',width:40, height:40),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.0),
@@ -32,16 +51,18 @@ class WritePost extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextField(
+                controller: titleController,
                 decoration: InputDecoration(
-                  hintText: '제목',
+                  hintText: 'Title',
                 ),
               ),
               SizedBox(height: 16.0),
               TextField(
+                controller: contentController,
                 decoration: InputDecoration(
-                  hintText: '내용',
+                  hintText: 'Content',
                 ),
-                maxLines: null, // 여러 줄 입력 가능
+                maxLines: null, // Allows multiple lines input
               ),
             ],
           ),
@@ -53,23 +74,79 @@ class WritePost extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.all(16.0),
-              child: Image.asset(
-                'assets/soo/folder-plus.png',
-                width: 50,
-                height: 50,
+              child: GestureDetector(
+                onTap: _pickImage,
+                child: Image.asset(
+                  'images/recipe/folder-plus.png',
+                  width: 70,
+                  height: 70,
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: FloatingActionButton(
                 onPressed: () {
-                  // 작성 버튼 클릭 시 실행되는 코드
-                  // 입력된 제목과 내용을 처리하는 로직을 여기에 추가
-                },
+                  // Get the absolute path of the selected image file
+                  String? imagePath = selectedImageFile?.path;
 
-                child: Text('작성'),
+                  // Navigate to the ReadPage and pass the title, content, and image path as route arguments
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ReadPage(
+                        title: titleController.text,
+                        content: contentController.text,
+                        imagePath: imagePath,
+                      ),
+                    ),
+                  );
+                },
+                child: Text('Submit'),
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ReadPage extends StatelessWidget {
+  final String title;
+  final String content;
+  final String? imagePath;
+
+  ReadPage({required this.title, required this.content, required this.imagePath});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Other Page'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Title: $title',
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(height: 16.0),
+            Text(
+              'Content: $content',
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(height: 16.0),
+            imagePath != null
+                ? Image.file(
+              File(imagePath!),
+              width: 200,
+              height: 200,
+            )
+                : SizedBox(),
           ],
         ),
       ),

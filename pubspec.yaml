@@ -28,6 +28,12 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   carousel_slider: ^4.2.1
+  intl: ^0.18.0
+  image_picker: 0.8.7+5
+  permission_handler: 10.2.0
+  time_chart: ^0.5.4
+  flutter_date_pickers: ^0.4.2
+  calendar_date_picker2: ^0.5.2
   flutter:
     sdk: flutter
 
@@ -54,10 +60,10 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - images/
-    - images/recipe/
-    - image/subscribe/
-    - soo/
+  - assets/images/
+  - assets/images/recipe/
+  - assets/images/subscribe/
+  - assets/soo/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
