@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:time_chart/time_chart.dart';
 
+
 void main() => runApp(Profile());
 
 class Profile extends StatelessWidget {
@@ -10,32 +11,32 @@ class Profile extends StatelessWidget {
   // Data must be sorted.
   final smallDataList = [
     DateTimeRange(
-      start: DateTime(2021, 2 , 24, 23, 15),
-      end: DateTime(2021, 2, 25, 7, 30),
+      start: DateTime(2023, 6 , 15, 23, 15),
+      end: DateTime(2023, 6, 16, 7, 30),
     ),
     DateTimeRange(
-      start: DateTime(2021, 2, 22, 1, 55),
-      end: DateTime(2021, 2, 22, 9, 12),
+      start: DateTime(2023, 6, 14, 1, 55),
+      end: DateTime(2023, 6, 15, 9, 12),
     ),
     DateTimeRange(
-      start: DateTime(2021, 2, 20, 0, 25),
-      end: DateTime(2021, 2, 20, 7, 34),
+      start: DateTime(2023, 6, 14, 0, 25),
+      end: DateTime(2023, 6, 14, 7, 34),
     ),
     DateTimeRange(
-      start: DateTime(2021, 2, 17, 21, 23),
-      end: DateTime(2021, 2, 18, 4, 52),
+      start: DateTime(2023, 6, 12, 21, 23),
+      end: DateTime(2023, 6, 13, 4, 52),
     ),
     DateTimeRange(
-      start: DateTime(2021, 2, 13, 6, 32),
-      end: DateTime(2021, 2, 13, 13, 12),
+      start: DateTime(2023, 6, 12, 6, 32),
+      end: DateTime(2023, 6, 12, 13, 12),
     ),
     DateTimeRange(
-      start: DateTime(2021, 2, 1, 9, 32),
-      end: DateTime(2021, 2, 1, 15, 22),
+      start: DateTime(2023, 6, 11, 12, 32),
+      end: DateTime(2023, 6, 12, 7, 22),
     ),
     DateTimeRange(
-      start: DateTime(2021, 1, 22, 12, 10),
-      end: DateTime(2021, 1, 22, 16, 20),
+      start: DateTime(2023, 6, 10, 1, 10),
+      end: DateTime(2023, 6, 10, 10, 20),
     ),
   ];
 
@@ -64,37 +65,36 @@ class Profile extends StatelessWidget {
     const sizedBox = SizedBox(height: 16);
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('Time chart example app')),
-        body: SingleChildScrollView(
+        body: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                // fit: BoxFit,
+                image: AssetImage('images/profile/profileBackground.png'),
+              )
+            ),
           child: Padding(
-            padding: const EdgeInsets.all(0),
+            padding: const EdgeInsets.only(top: 60),
             child: Column(
               children: [
                 Container(
-                  width: double.infinity,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    color: Color(0xff90B661),
-                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20))
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage('images/recipe/recipe1.png')
+                      )
+                    ),
                   ),
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
+                  Text("선주팍",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
                   ),
-                ),
-                Text("선주팍",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
-                ),
-                Text("좋은 아침입니다~"),
-                Text("평균 6시간 16분 자네요!",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 20),
-               Row(
+                  Text("좋은 아침입니다~"),
+                  Text("평균 6시간 16분 자네요!",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 20),
+                Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: [
                    Container(

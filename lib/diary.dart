@@ -143,6 +143,10 @@ class _MyHomePageState extends State<MyHomePage> {
           child: ListView(
             children: <Widget>[
               _buildDefaultMultiDatePickerWithValue(),
+              FloatingActionButton(
+                child: Icon(Icons.add),
+                onPressed: addItemToList,
+              ),
             ],
           ),
         ),
@@ -185,74 +189,97 @@ class _MyHomePageState extends State<MyHomePage> {
     ListItem("제목 1", "내용 1"),
   ];
 
-void addItemToList() {
-  setState(() {
-    itemList.add(
-      ListItem("새로운 제목", "새로운 내용"),
+  void addItemToList() {
+    setState(() {
+      itemList.add(
+        ListItem("새로운 제목", "새로운 내용"),
+      );
+    });
+  }
+
+  Widget _buildDefaultMultiDatePickerWithValue() {
+    final config = CalendarDatePicker2Config(
+      calendarType: CalendarDatePicker2Type.multi,
+      selectedDayHighlightColor: Color(0xffFFEBE4),
     );
-  });
-}
-
-Widget _buildDefaultMultiDatePickerWithValue() {
-  final config = CalendarDatePicker2Config(
-    calendarType: CalendarDatePicker2Type.multi,
-    selectedDayHighlightColor: Color(0xffFFEBE4),
-  );
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const SizedBox(height: 10),
-      CalendarDatePicker2(
-        config: config,
-        value: _multiDatePickerValueWithDefaultValue,
-        onValueChanged: (dates) =>
-            setState(() => _multiDatePickerValueWithDefaultValue = dates),
-      ),
-      const SizedBox(height: 10),
-      Wrap(
-          children: [
-            const Text('Selection(s):  '),
-            const SizedBox(width: 10),
-            Text(
-              _getValueText(
-                config.calendarType,
-                _multiDatePickerValueWithDefaultValue,
-              ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              softWrap: false,
-            ),
-            IconButton(
-                icon: Icon(Icons.add_circle_outline),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext ctx) => DiaryWrite()));
-                }
-            ),
-            IconButton(
-                icon: Icon(Icons.add_circle_outline),
-                onPressed: addItemToList,
-            ),
-            const SizedBox(height: 50),
-            Container(
-              height: 350,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ListView.separated(
-                      padding: const EdgeInsets.all(8),
-                      itemCount: itemList.length,
-                      itemBuilder: (context, index) {
-                        return CustomListItem(itemList[index], index);
-                      }, separatorBuilder: (BuildContext context, int index) => SizedBox(height: 20),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(height: 10),
+        CalendarDatePicker2(
+          config: config,
+          value: _multiDatePickerValueWithDefaultValue,
+          onValueChanged: (dates) =>
+              setState(() => _multiDatePickerValueWithDefaultValue = dates),
+        ),
+        const SizedBox(height: 10),
+        Wrap(
+            children: [
+              // const Text('Selection(s):  '),
+              // const SizedBox(width: 10),
+              // Text(
+              //   _getValueText(
+              //     config.calendarType,
+              //     _multiDatePickerValueWithDefaultValue,
+              //   ),
+              //   overflow: TextOverflow.ellipsis,
+              //   maxLines: 1,
+              //   softWrap: false,
+              // ),
+              // IconButton(
+              //     icon: Icon(Icons.add_circle_outline),
+              //     onPressed: () {
+              //       Navigator.push(context, MaterialPageRoute(builder: (BuildContext ctx) => DiaryWrite()));
+              //     }
+              // ),
+              const SizedBox(height: 100),
+              Container(
+                height: 350,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ListView.separated(
+                        padding: const EdgeInsets.all(8),
+                        itemCount: itemList.length,
+                        itemBuilder: (context, index) {
+                          return CustomListItem(itemList[index], index);
+                        }, separatorBuilder: (BuildContext context, int index) => SizedBox(height: 20),
+                      ),
                     ),
-                  ),
-                ],
-              )
-            ),  ]
-      )
-    ]
-  );
+                  ],
+                )
+              ),
+            ]
+        )
+      ]
+    );
+  }
 }
 
-
-}
+// class DialogBox extends StatelessWidget {
+//   const DialogBox({super.key});
+//
+//   @override
+//   Widget _Alart() {
+//     return AlartDialog(
+//       backgroundColor: Colors.white,
+//       content: Container(
+//           height: 120,
+//           child: Column(children: [
+//             TextField(
+//               decoration: InputDecoration(
+//                   border: OutlineInputBorder(),
+//                   hintText: "아침으로 먹은것은?"
+//               ),
+//             ),
+//             TextField(
+//               decoration: InputDecoration(
+//                   border: OutlineInputBorder(),
+//                   hintText: "아침으로 먹은것은?"
+//               ),
+//             )
+//           ],)
+//       ),
+//     );
+//   }
+// }
